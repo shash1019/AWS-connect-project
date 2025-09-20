@@ -20,7 +20,7 @@ env:
   TF_LOCK_TABLE: ${{ vars.TF_LOCK_TABLE }}
   TF_BACKEND_KEY: ${{ vars.TF_BACKEND_KEY }} # prod-only
   TF_DIR: ${{ vars.TF_DIR }}
-  AWS_ROLE_TO_ASSUME: "arn:aws:iam::522814733082:role/GitHubActionsTerraform"
+  AWS_ROLE_TO_ASSUME: arn:aws:iam::522814733082:role/GitHubActionsTerraform
 
 jobs:
   # defining the Job
