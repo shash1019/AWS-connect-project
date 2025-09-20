@@ -63,41 +63,18 @@ jobs:
         shell: bash
         run: |
           set -e
-          if [ -z "${ACTIONS_ID_TOKEN_REQUEST_URL}" ] || [ -z "${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" ]; then
-           echo "❌ Missing id-token permission. Add 'permissions: id-token: write' at top of workflow."; exit 1
-           fi
           TOK_JSON=$(curl -sS -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
-          "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sts.amazonaws.com")
+            "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sts.amazonaws.com")
           IDTOK=$(echo "$TOK_JSON" | jq -r '.value')
-          if [ "$IDTOK" = "null" ] || [ -z "$IDTOK" ]; then
-          echo "❌ GitHub did not issue an ID token. Check 'permissions: id-token: write' and that this run is NOT from a forked PR."; exit 1
-          fi
-           echo "✅ OIDC token fetched."
+          [ -n "$IDTOK" ] && [ "$IDTOK" != "null" ] || { echo "No ID token"; exit 1; }
 
-           PAYLOAD=$(echo "$IDTOK" | awk -F. '{print $2}' | tr '_-' '/+' | base64 -d 2>/dev/null || true)
-           echo "Claims:"; echo "$PAYLOAD" | jq .
-
-      - name: call STS assume-role-with-web-identity directly
-        shell: bash
-        env:
-          ROLE_ARN: arn:aws:iam::522814733082:role/GitHubActionsTerraform
-        run: |
-
-          # This call does NOT need prior AWS creds; it uses the OIDC token directly.
-          set +e
-          RESP=$(aws sts assume-role-with-web-identity \
-            --role-arn "${ROLE_ARN}" \
+          aws sts assume-role-with-web-identity \
+            --role-arn arn:aws:iam::522814733082:role/GitHubActionsTerraform \
             --role-session-name gha-oidc-test \
             --web-identity-token "$IDTOK" \
             --duration-seconds 3600 \
-            --output json 2>&1)
-          RC=$?
-          set -e
-          echo "$RESP"
-          if [ $RC -ne 0 ]; then
-            echo "❌ STS rejected the token. Check the message above for the exact reason (audience, principal, or condition mismatch)."; exit $RC
-          fi
-          echo "✅ STS returned credentials."
+            --query 'Credentials' \
+            --output json
 
         # authenticates
       - name: Configure AWS via OIDC
