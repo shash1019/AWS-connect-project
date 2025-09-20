@@ -1,0 +1,65 @@
+#name of the worflow
+name: Terraform (prod-only)
+
+#outline the conditions
+on:
+  pull_request:
+    branches: [main] # PRs whose BASE is prod (e.g., dev -> prod)
+  push:
+    branches: [main] # merge to prod
+
+permissions:
+  id-token: write # give workflow ability to generate OIDC
+  contents: read # give workflow ability to read the repo
+
+# set up the environments
+env:
+  AWS_REGION: ${{ vars.AWS_REGION }}
+  AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+  TF_STATE_BUCKET: ${{ vars.TF_STATE_BUCKET }}
+  TF_LOCK_TABLE: ${{ vars.TF_LOCK_TABLE }}
+  TF_BACKEND_KEY: ${{ vars.TF_BACKEND_KEY }} # prod-only
+  TF_DIR: ${{ vars.TF_DIR }}
+  AWS_ROLE_TO_ASSUME: ${{ vars.AWS_ROLE_TO_ASSUME }}
+
+jobs:
+  # defining the Job
+  terraform:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: terraform-prod #Ensures only one prod job runs at a time
+      cancel-in-progress: false # Don’t cancel a running job if a new one starts.
+
+    steps:
+      # here wf gets the repo to the runner so later steps can read the infra
+      - name: Checkout
+        uses: actions/checkout@v4
+
+        # authenticates
+      - name: Configure AWS via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ env.AWS_REGION }}
+        # installs tersraform in the runner
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+        #points terraform to the remote backend
+      - name: Terraform Init (prod backend)
+        run: |
+          terraform -chdir=$TF_DIR init \
+            -backend-config="bucket=$TF_STATE_BUCKET" \
+            -backend-config="region=$AWS_REGION" \
+            -backend-config="dynamodb_table=$TF_LOCK_TABLE" \
+            -backend-config="key=$TF_BACKEND_KEY"
+
+      # PLAN only on PR to prod (optionally ensure head is dev)
+      - name: Terraform Plan (PR dev -> prod)
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.ref == 'dev'
+        run: terraform -chdir=$TF_DIR plan -input=false -no-color
+
+      # APPLY only on merge/push to prod
+      - name: Terraform Apply (merge to prod)
+        if: github.event_name == 'push'
+        run: terraform -chdir=$TF_DIR apply -auto-approve -input=false
