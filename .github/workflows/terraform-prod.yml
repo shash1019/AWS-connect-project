@@ -7,6 +7,13 @@ on:
     branches: [main] # PRs whose BASE is prod (e.g., dev -> prod)
   push:
     branches: [main] # merge to prod
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "What to run?"
+        type: choice
+        default: plan
+        options: [plan, apply]
 
 permissions:
   id-token: write # give workflow ability to generate OIDC
