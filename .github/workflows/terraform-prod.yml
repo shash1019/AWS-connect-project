@@ -58,6 +58,11 @@ jobs:
           role-to-assume: arn:aws:iam::522814733082:role/GitHubActionsTerraform
           aws-region: ${{ env.AWS_REGION }}
 
+      - name: Sanity show configured AWS_* env vars
+        run: env | grep ^AWS_ || true
+
+      - name: Who am I? (STS)
+        run: aws sts get-caller-identity
       - name: Show AWS identity # <-- run AFTER credentials are configured
         run: aws sts get-caller-identity
         # installs tersraform in the runner
