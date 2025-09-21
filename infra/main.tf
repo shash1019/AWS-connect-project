@@ -6,14 +6,9 @@ provider "aws" {
   region = var.aws_region
 }
 
-variable "aws_region" {
-  type    = string
-  default = "ap-southeast-2"
-}
-
-# Latest Amazon Linux 2 AMI in ap-southeast-2 (owner = Amazon)
+# --- Data sources ---
 data "aws_ami" "amzn2" {
-  owners      = ["137112412989"]
+  owners      = ["137112412989"] # Amazon
   most_recent = true
   filter {
     name   = "name"
@@ -21,7 +16,23 @@ data "aws_ami" "amzn2" {
   }
 }
 
-# Security group in default VPC (no inbound; allow all outbound)
+data "aws_vpc" "default" {
+  default = true
+}
+
+data "aws_subnets" "default" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
+}
+
+# --- Locals ---
+locals {
+  demo_subnet_id = data.aws_subnets.default.ids[0]
+}
+
+# --- Resources ---
 resource "aws_security_group" "demo" {
   name        = "demo-sg"
   description = "Demo SG (egress only)"
@@ -37,24 +48,6 @@ resource "aws_security_group" "demo" {
   tags = { Name = "demo-sg" }
 }
 
-# Default VPC + a default subnet (any one)
-data "aws_vpc" "default" {
-  default = true
-}
-
-data "aws_subnets" "default" {
-  filter {
-    name   = "vpc-id"
-    values = [data.aws_vpc.default.id]
-  }
-}
-
-# Pick first subnet just for the demo
-locals {
-  demo_subnet_id = data.aws_subnets.default.ids[0]
-}
-
-# Tiny EC2 instance (no key pair, no inbound SSH)
 resource "aws_instance" "demo" {
   ami                         = data.aws_ami.amzn2.id
   instance_type               = "t3.micro"
@@ -64,7 +57,3 @@ resource "aws_instance" "demo" {
 
   tags = { Name = "tf-demo-ec2" }
 }
-
-output "instance_id"  { value = aws_instance.demo.id }
-output "public_ip"    { value = aws_instance.demo.public_ip }
-output "ami_id"       { value = data.aws_ami.amzn2.id }
