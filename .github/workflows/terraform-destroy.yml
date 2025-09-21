@@ -26,7 +26,7 @@ env:
   AWS_ROLE_TO_ASSUME: ${{ vars.AWS_ROLE_TO_ASSUME }}
 
   # Prod-only state key (matches your apply workflow)
-  TF_BACKEND_KEY: ec2-demo/prod/terraform.tfstate
+  TF_BACKEND_KEY: ${{ vars.TF_BACKEND_KEY }}
 
 jobs:
   destroy:
