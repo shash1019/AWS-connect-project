@@ -1,5 +1,7 @@
 # define the bucket name
-locals { bucket_name = "${var.project}-${data.aws_caller_identity.account_id}-site-live" }  # must be globally unique
+data "aws_caller_identity" "account_info" {}
+
+locals { bucket_name = "${var.project}-${data.aws_caller_identity.account_info.account_id}-site-live" }  # must be globally unique
 
 #create a s3 bucket resource called site and name provide a name
 resource "aws_s3_bucket" "site" {
