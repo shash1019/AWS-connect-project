@@ -55,15 +55,15 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "sse" {
 resource "aws_s3_object" "index" {
   bucket       = aws_s3_bucket.site.id
   key          = "index.html"
-  source       = "${path.module}/../site/index.html"
+  source       = "${path.module}/../static-site/index.html"
   content_type = "text/html"
-  etag         = filemd5("${path.module}/../site/index.html")
+  etag         = filemd5("${path.module}/../static-site/index.html")
 }
 
 resource "aws_s3_object" "error" {
   bucket       = aws_s3_bucket.site.id
   key          = "error.html"
-  source       = "${path.module}/../site/error.html"
+  source       = "${path.module}/../static-site/error.html"
   content_type = "text/html"
-  etag         = filemd5("${path.module}/../site/error.html")
+  etag         = filemd5("${path.module}/../static-site/error.html")
 }
