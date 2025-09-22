@@ -5,4 +5,4 @@ terraform {
     aws = { source = "hashicorp/aws", version = "~> 5.50" }
   }
 }
-provider "aws" { region = aws_regionvar.region }
+provider "aws" { region = var.aws_region }
