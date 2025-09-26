@@ -32,6 +32,41 @@
       <div class="card">
         <h1>Chat</h1>
         <p>Static site on S3. Connect widget goes at the bottom.</p>
+        <script type="text/javascript">
+          (function (w, d, x, id) {
+            s = d.createElement("script");
+            s.src =
+              "https://aws-connect-project-shash.my.connect.aws/connectwidget/static/amazon-connect-chat-interface-client.js";
+            s.async = 1;
+            s.id = id;
+            d.getElementsByTagName("head")[0].appendChild(s);
+            w[x] =
+              w[x] ||
+              function () {
+                (w[x].ac = w[x].ac || []).push(arguments);
+              };
+          })(
+            window,
+            document,
+            "amazon_connect",
+            "449673bd-8bf5-4e63-8194-8e2c9421d13d"
+          );
+          amazon_connect("styles", {
+            iconType: "CHAT",
+            openChat: { color: "#ffffff", backgroundColor: "#123456" },
+            closeChat: { color: "#ffffff", backgroundColor: "#123456" },
+          });
+          amazon_connect(
+            "snippetId",
+            "QVFJREFIZ0JXUDRpTEE4cmZyV2xXczFoK1FVRnFIUjZkUU9mYTlTR2FNYytKUWduQXdIczVJTkVqZ0NSU1UwNnBWWWpoK3Y0QUFBQWJqQnNCZ2txaGtpRzl3MEJCd2FnWHpCZEFnRUFNRmdHQ1NxR1NJYjNEUUVIQVRBZUJnbGdoa2dCWlFNRUFTNHdFUVFNZ0R3L0c5ek5zTE1UTmREOEFnRVFnQ3Q1bnRDUjY0end6Q1NtVjVkZFRBWGVYenBUWjNaTldsQWhVcGZKWUloQmRpVW0zVEpGc0pSYmluWW06OlE1K09WZmdsUzhNUEhMbUYzYTluN2JiYVByaWtrREVJdnBieXBmaEh2UzFQYjJPWHkreHZ1UFBzUU5nTDZwa0VlQUZlcE1rY1FjNHRNdHp0RkFqY3lsWkR5eTlQWDBlckNKS2ZlUm5FT25PTWMyby9yUkkxL2s2cmI1M05wbVpMTVlHRmNhNm5KZGh5ZWNxMU5xRFpURGtUWjVOSnp0RT0="
+          );
+          amazon_connect("supportedMessagingContentTypes", [
+            "text/plain",
+            "text/markdown",
+            "application/vnd.amazonaws.connect.message.interactive",
+            "application/vnd.amazonaws.connect.message.interactive.response",
+          ]);
+        </script>
       </div>
     </main>
     <!-- 🔽 Paste Hosted Chat widget snippet here later -->
