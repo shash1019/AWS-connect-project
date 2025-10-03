@@ -16,11 +16,12 @@ resource "aws_s3_bucket_website_configuration" "site" {
   error_document { key    = "error.html" }
 }
 
-resource "aws_s3_bucket_public_access_block" "site" {
-  bucket                  = aws_s3_bucket.site.id
+# Turn OFF account-level BPA so public bucket policies are allowed
+resource "aws_s3_account_public_access_block" "account" {
+  account_id              = "522814733082"
   block_public_acls       = false
-  block_public_policy     = false
   ignore_public_acls      = false
+  block_public_policy     = false
   restrict_public_buckets = false
 }
 
