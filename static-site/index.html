@@ -33,42 +33,19 @@
         <h1>Chat</h1>
         <p>shash connect</p>
       </div>
-      <script type="text/javascript">
-        (function (w, d, x, id) {
-          s = d.createElement("script");
-          s.src =
-            "https://aws-connect-project-shash.my.connect.aws/connectwidget/static/amazon-connect-chat-interface-client.js";
-          s.async = 1;
-          s.id = id;
-          d.getElementsByTagName("head")[0].appendChild(s);
-          w[x] =
-            w[x] ||
-            function () {
-              (w[x].ac = w[x].ac || []).push(arguments);
-            };
-        })(
-          window,
-          document,
-          "amazon_connect",
-          "449673bd-8bf5-4e63-8194-8e2c9421d13d"
-        );
-        amazon_connect("styles", {
-          iconType: "CHAT",
-          openChat: { color: "#ffffff", backgroundColor: "#123456" },
-          closeChat: { color: "#ffffff", backgroundColor: "#123456" },
-        });
-        amazon_connect(
-          "snippetId",
-          "QVFJREFIZ0JXUDRpTEE4cmZyV2xXczFoK1FVRnFIUjZkUU9mYTlTR2FNYytKUWduQXdIczVJTkVqZ0NSU1UwNnBWWWpoK3Y0QUFBQWJqQnNCZ2txaGtpRzl3MEJCd2FnWHpCZEFnRUFNRmdHQ1NxR1NJYjNEUUVIQVRBZUJnbGdoa2dCWlFNRUFTNHdFUVFNZ0R3L0c5ek5zTE1UTmREOEFnRVFnQ3Q1bnRDUjY0end6Q1NtVjVkZFRBWGVYenBUWjNaTldsQWhVcGZKWUloQmRpVW0zVEpGc0pSYmluWW06OlE1K09WZmdsUzhNUEhMbUYzYTluN2JiYVByaWtrREVJdnBieXBmaEh2UzFQYjJPWHkreHZ1UFBzUU5nTDZwa0VlQUZlcE1rY1FjNHRNdHp0RkFqY3lsWkR5eTlQWDBlckNKS2ZlUm5FT25PTWMyby9yUkkxL2s2cmI1M05wbVpMTVlHRmNhNm5KZGh5ZWNxMU5xRFpURGtUWjVOSnp0RT0="
-        );
-        amazon_connect("supportedMessagingContentTypes", [
-          "text/plain",
-          "text/markdown",
-          "application/vnd.amazonaws.connect.message.interactive",
-          "application/vnd.amazonaws.connect.message.interactive.response",
-        ]);
-      </script>
-    </main>
-    <!-- 🔽 Paste Hosted Chat widget snippet here later -->
+     <script type="text/javascript">
+    (function(w, d, x, id){
+        s=d.createElement('script');
+        s.src='https://aws-connect-project-shash.my.connect.aws/connectwidget/static/amazon-connect-chat-interface-client.js';
+        s.async=1;
+        s.id=id;
+        d.getElementsByTagName('head')[0].appendChild(s);
+        w[x] =  w[x] || function() { (w[x].ac = w[x].ac || []).push(arguments) };
+    })(window, document, 'amazon_connect', '449673bd-8bf5-4e63-8194-8e2c9421d13d');
+    amazon_connect('styles', { iconType: 'CHAT', openChat: { color: '#ffffff', backgroundColor: '#123456' }, closeChat: { color: '#ffffff', backgroundColor: '#123456'}, headerConfig: { headerMessage: 'Welcome to Shash-Connect?', headerColorHex: '#123456'}, logoConfig: { sourceUrl: ''} });
+    amazon_connect('snippetId', 'QVFJREFIZ0JXUDRpTEE4cmZyV2xXczFoK1FVRnFIUjZkUU9mYTlTR2FNYytKUWduQXdIczVJTkVqZ0NSU1UwNnBWWWpoK3Y0QUFBQWJqQnNCZ2txaGtpRzl3MEJCd2FnWHpCZEFnRUFNRmdHQ1NxR1NJYjNEUUVIQVRBZUJnbGdoa2dCWlFNRUFTNHdFUVFNZ0R3L0c5ek5zTE1UTmREOEFnRVFnQ3Q1bnRDUjY0end6Q1NtVjVkZFRBWGVYenBUWjNaTldsQWhVcGZKWUloQmRpVW0zVEpGc0pSYmluWW06OlE1K09WZmdsUzhNUEhMbUYzYTluN2JiYVByaWtrREVJdnBieXBmaEh2UzFQYjJPWHkreHZ1UFBzUU5nTDZwa0VlQUZlcE1rY1FjNHRNdHp0RkFqY3lsWkR5eTlQWDBlckNKS2ZlUm5FT25PTWMyby9yUkkxL2s2cmI1M05wbVpMTVlHRmNhNm5KZGh5ZWNxMU5xRFpURGtUWjVOSnp0RT0=');
+    amazon_connect('supportedMessagingContentTypes', [ 'text/plain', 'text/markdown', 'application/vnd.amazonaws.connect.message.interactive', 'application/vnd.amazonaws.connect.message.interactive.response' ]);
+    amazon_connect('viewConfig', '{\"name\":\"Prechat\",\"description\":\"collect customer information\",\"id\":\"58da0f8a-5816-41cd-a200-aa4ef3a7bbbd\",\"arn\":\"arn:aws:connect:ap-southeast-2:522814733082:instance/54beb4ec-8c2e-4163-9fac-46cc005484fb/view/58da0f8a-5816-41cd-a200-aa4ef3a7bbbd:$LATEST\",\"type\":\"CUSTOMER_MANAGED\",\"content\":{\"template\":{\"Head\":{\"Configuration\":{\"Layout\":{\"Columns\":\"12\"}},\"Integrations\":[],\"Title\":\"Prechat\"},\"Body\":[{\"_id\":\"Header_1\",\"Type\":\"Header\",\"Props\":{\"variant\":\"h3\",\"description\":\"\"},\"Content\":[\"Customer details\"]},{\"_id\":\"Form_1\",\"Type\":\"Form\",\"Props\":{},\"Content\":[{\"_id\":\"Container_1\",\"Type\":\"Container\",\"Props\":{\"HideBorder\":false},\"Content\":[{\"_id\":\"DatePicker_1759464873281\",\"Type\":\"DatePicker\",\"Props\":{\"Label\":\"Label placeholder\",\"Name\":\"input-1\",\"DateFormat\":\"\",\"DefaultValue\":\"2023-11-01\",\"HelperText\":\"Inform user the date format here\",\"Required\":false},\"Content\":[]}],\"Configuration\":{\"Layout\":{\"Align\":\"left\"}}},{\"_id\":\"FormInput_1759464902067\",\"Type\":\"FormInput\",\"Props\":{\"Label\":\"Please enter your first name\",\"Name\":\"fname\",\"DefaultValue\":\"Jhon\",\"InputType\":\"text\",\"Required\":false,\"HelperText\":\"HelperText Placeholder\",\"ValidationPattern\":\"\"},\"Content\":[]},{\"_id\":\"FormInput_1759464898174\",\"Type\":\"FormInput\",\"Props\":{\"Label\":\"Please enter your last name\",\"Name\":\"lname\",\"DefaultValue\":\"Wayne\",\"InputType\":\"text\",\"Required\":false,\"HelperText\":\"HelperText Placeholder\",\"ValidationPattern\":\"\"},\"Content\":[]},{\"_id\":\"FormInput_1759465174002\",\"Type\":\"FormInput\",\"Props\":{\"Label\":\"Email\",\"Name\":\"email\",\"DefaultValue\":\"example@gmail.com\",\"InputType\":\"text\",\"Required\":false,\"HelperText\":\"HelperText Placeholder\",\"ValidationPattern\":\"\"},\"Content\":[]},{\"_id\":\"FormInput_1759465045819\",\"Type\":\"FormInput\",\"Props\":{\"Label\":\"Order number\",\"Name\":\"input-1\",\"DefaultValue\":\"#####\",\"InputType\":\"text\",\"Required\":true,\"HelperText\":\"HelperText Placeholder\",\"ValidationPattern\":\"\"},\"Content\":[]}]},{\"_id\":\"ConnectAction_1759466179034\",\"Type\":\"ConnectAction\",\"Props\":{\"ConnectActionType\":\"StartChatContact\",\"Label\":\"Connect\",\"StartTaskContactProps\":{\"ContactFlowId\":\"\",\"TaskFields\":{\"Name\":\"\",\"References\":{}},\"Attributes\":[{\"Key\":\"\",\"Value\":\"\"}]},\"StartEmailContactProps\":{\"DestinationEmailAddress\":\"\",\"ContactFlowId\":\"\",\"EmailFields\":{\"CustomerDisplayName\":\"\",\"CustomerEmailAddress\":\"\",\"Subject\":\"\",\"Body\":\"\"},\"Attributes\":[{\"Key\":\"\",\"Value\":\"\"}]},\"StartChatContactProps\":{\"ContactFlowId\":\"arn:aws:connect:ap-southeast-2:522814733082:instance/54beb4ec-8c2e-4163-9fac-46cc005484fb/contact-flow/0eec4710-b465-47e9-8006-d57c5ecb3b7f\",\"ChatFields\":{\"CustomerDisplayName\":\"\",\"InitialMessage\":\"\"},\"Attributes\":[{\"Key\":\"\",\"Value\":\"\"}]}},\"Content\":[\"Connect Action Button\"]}]},\"actions\":[\"ActionSelected\"],\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"required\":[],\"$defs\":{\"ViewCondition\":{\"$id\":\"/view/condition\",\"type\":\"object\",\"patternProperties\":{\"^(MoreThan|LessThan|NotEqual|Equal|Include)$\":{\"type\":\"object\",\"properties\":{\"ElementByKey\":{\"type\":\"string\"},\"ElementByValue\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"}]}},\"additionalProperties\":false},\"^(AndConditions|OrConditions)$\":{\"type\":\"array\",\"items\":{\"$ref\":\"/view/condition\"}}},\"additionalProperties\":false}}}},\"status\":\"PUBLISHED\",\"viewContentSha256\":\"5366121cbe8ed818d7a2fe24871cf51eb6eb67388cb46a2e9e998b2bb36959bd\"}');
+</script>
   </body>
 </html>
